@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Datagrid, Edit, Create, SimpleForm, TextField, EditButton, DisabledInput, TextInput, SelectField, SelectInput } from 'react-admin'
+import { List, Datagrid, Edit, Create, SimpleForm, TextField, EditButton, TextInput, SelectField, SelectInput } from 'react-admin'
 import { apiIntrospection } from '../dataProvider'
 import _ from 'lodash'
 
@@ -37,7 +37,7 @@ const UserName = ({ record }) => {
 export const UserEdit = (props) => (
   <Edit title={<UserName />} {...props}>
     <SimpleForm>
-      <DisabledInput source='id' />
+      <TextInput source='id' disabled />
       <TextInput source='username' />
       <TextInput source='email' />
       <TextInput source='password' type='password' />
