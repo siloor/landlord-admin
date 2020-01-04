@@ -1,0 +1,58 @@
+version: '3'
+services:
+  frontend:
+    container_name: landlord-admin-frontend
+    image: node:8-alpine
+    command: /bin/sh
+    user: node
+    stdin_open: true
+    tty: true
+    working_dir: /usr/src/app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/usr/src/app/
+    environment:
+      - YARN_CACHE_FOLDER=/usr/src/app/.yarn-cache
+  api:
+    container_name: landlord-admin-api
+    build: ./docker/api
+    command: /bin/sh
+    user: node
+    stdin_open: true
+    tty: true
+    working_dir: /usr/src/app
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./api:/usr/src/app/
+    links:
+      - mysql
+    environment:
+      - YARN_CACHE_FOLDER=/usr/src/app/.yarn-cache
+  mysql:
+    container_name: landlord-admin-mysql
+    image: mysql:5.7
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: landlord-admin
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: userpassword
+  phpmyadmin:
+    container_name: landlord-admin-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    ports:
+      - "81:80"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USERNAME: mysqluser
+      PMA_HOST: mysql
+volumes:
+  db-data:
