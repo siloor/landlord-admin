@@ -7,11 +7,16 @@ export default {
 
     const graphQLClient = getGraphqlClient()
 
-    const query = `mutation {
-      login (email: "${username}", password: "${password}")
+    const query = `mutation login($email: String!, $password: String!) {
+      login (email: $email, password: $password)
     }`
 
-    return graphQLClient.request(query).then(data => {
+    const variables = {
+      email: username,
+      password
+    }
+
+    return graphQLClient.request(query, variables).then(data => {
       const token = data.login
       const decodedToken = decodeJwt(token)
 
