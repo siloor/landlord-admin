@@ -13,6 +13,18 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true
   })
 
+  User.associate = function (models) {
+    User.belongsToMany(models.Property, { through: models.UserProperty })
+  }
+
+  User.getPropertyIds = async (id) => {
+    const user = await User.findOne({ where: { id: id } })
+
+    const properties = await user.getProperties()
+
+    return properties.map(property => property.get('id'))
+  }
+
   User.ROLE_ADMIN = ROLE_ADMIN
   User.ROLE_USER = ROLE_USER
 

@@ -17,10 +17,19 @@ const typeDefs = gql`
     role: UserRoles!
   }
 
+  type Property {
+    id: ID!
+    name: String!
+  }
+
   type Query {
     allUsers(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: UserFilter): [User]
     _allUsersMeta(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: UserFilter): ListMetadata
     User(id: ID!): User
+
+    allProperties(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: PropertyFilter): [Property]
+    _allPropertiesMeta(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: PropertyFilter): ListMetadata
+    Property(id: ID!): Property
   }
 
   type Mutation {
@@ -41,6 +50,15 @@ const typeDefs = gql`
       role: String!
     ): User
     deleteUser(id: ID!): User
+
+    createProperty(
+      name: String!
+    ): Property
+    updateProperty(
+      id: ID!
+      name: String!
+    ): Property
+    deleteProperty(id: ID!): Property
   }
 
   type ListMetadata {
@@ -50,6 +68,10 @@ const typeDefs = gql`
   input UserFilter {
     ids: [ID]
     role: UserRoles
+  }
+
+  input PropertyFilter {
+    ids: [ID]
   }
 `
 

@@ -43,6 +43,7 @@ services:
       MYSQL_DATABASE: landlord-admin
       MYSQL_USER: mysqluser
       MYSQL_PASSWORD: userpassword
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
   phpmyadmin:
     container_name: landlord-admin-phpmyadmin
     image: phpmyadmin/phpmyadmin

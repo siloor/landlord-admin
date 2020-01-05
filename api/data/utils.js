@@ -36,7 +36,7 @@ const getListingQuery = (page, perPage, sortField, sortOrder, filter) => {
 const getListingCountQuery = (page, perPage, sortField, sortOrder, filter) => {
   const query = {}
 
-  if (filter.ids) {
+  if (filter && filter.ids) {
     query.where = { id: filter.ids }
   }
 
