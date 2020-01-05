@@ -5,7 +5,9 @@ import { deepPurple } from '@material-ui/core/colors'
 import buildDataProvider from './dataProvider'
 import authProvider from './authProvider'
 
+import Dashboard from './dashboard/index'
 import { UserCreate, UserEdit, UserList } from './users/index'
+import { PropertyCreate, PropertyEdit, PropertyList } from './properties/index'
 
 import People from '@material-ui/icons/People'
 
@@ -36,9 +38,10 @@ class App extends Component {
     }
 
     return (
-      <Admin dataProvider={dataProvider} authProvider={authProvider} theme={theme}>
+      <Admin dataProvider={dataProvider} authProvider={authProvider} theme={theme} dashboard={Dashboard}>
         {permissions => [
-          <Resource name='User' icon={People} list={UserList} edit={UserEdit} create={UserCreate} />
+          <Resource name='User' icon={People} list={UserList} edit={UserEdit} create={UserCreate} />,
+          <Resource name='Property' list={PropertyList} edit={PropertyEdit} create={PropertyCreate} />
         ]}
       </Admin>
     )
