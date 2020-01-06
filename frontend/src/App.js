@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { Admin, Resource } from 'react-admin'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { deepPurple } from '@material-ui/core/colors'
+import People from '@material-ui/icons/People'
+
 import buildDataProvider from './dataProvider'
 import authProvider from './authProvider'
-
-import Dashboard from './dashboard/index'
-import { UserCreate, UserEdit, UserList } from './users/index'
-import { PropertyCreate, PropertyEdit, PropertyList } from './properties/index'
-
-import People from '@material-ui/icons/People'
+import MyLayout from './Components/MyLayout'
+import Dashboard from './Components/Dashboard'
+import { UserCreate, UserEdit, UserList } from './Components/Users'
+import { PropertyCreate, PropertyEdit, PropertyList } from './Components/Properties'
 
 const theme = createMuiTheme({
   palette: {
@@ -38,9 +38,9 @@ class App extends Component {
     }
 
     return (
-      <Admin dataProvider={dataProvider} authProvider={authProvider} theme={theme} dashboard={Dashboard}>
+      <Admin dataProvider={dataProvider} authProvider={authProvider} theme={theme} dashboard={Dashboard} layout={MyLayout}>
         {permissions => [
-          <Resource name='User' icon={People} list={UserList} edit={UserEdit} create={UserCreate} />,
+          <Resource name='User' icon={People} list={permissions === 'admin' ? UserList : null} edit={UserEdit} create={permissions === 'admin' ? UserCreate : null} />,
           <Resource name='Property' list={PropertyList} edit={PropertyEdit} create={PropertyCreate} />
         ]}
       </Admin>

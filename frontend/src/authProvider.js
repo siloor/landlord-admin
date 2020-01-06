@@ -1,6 +1,12 @@
 import decodeJwt from 'jwt-decode'
 import getGraphqlClient from './graphqlClient'
 
+export const getUserData = () => {
+  const token = window.localStorage.getItem('token')
+
+  return decodeJwt(token)
+}
+
 export default {
   login: params => {
     const { username, password } = params
@@ -18,15 +24,12 @@ export default {
 
     return graphQLClient.request(query, variables).then(data => {
       const token = data.login
-      const decodedToken = decodeJwt(token)
 
       window.localStorage.setItem('token', token)
-      window.localStorage.setItem('role', decodedToken.role)
     })
   },
   logout: params => {
     window.localStorage.removeItem('token')
-    window.localStorage.removeItem('role')
 
     return Promise.resolve()
   },
@@ -35,8 +38,8 @@ export default {
   },
   checkError: error => Promise.resolve(),
   getPermissions: params => {
-    const role = window.localStorage.getItem('role')
+    const userData = getUserData()
 
-    return role ? Promise.resolve(role) : Promise.reject(new Error())
+    return userData.role ? Promise.resolve(userData.role) : Promise.reject(new Error())
   }
 }

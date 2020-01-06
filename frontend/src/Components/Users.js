@@ -1,7 +1,7 @@
 import React from 'react'
+import _ from 'lodash'
 import { List, Datagrid, Edit, Create, SimpleForm, TextField, EditButton, TextInput, SelectField, SelectInput } from 'react-admin'
 import { apiIntrospection } from '../dataProvider'
-import _ from 'lodash'
 
 const getAllowedRoles = () => {
   if (apiIntrospection.introspection === null) {
