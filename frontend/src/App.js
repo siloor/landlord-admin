@@ -4,7 +4,7 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import { deepPurple } from '@material-ui/core/colors'
 import People from '@material-ui/icons/People'
 
-import buildDataProvider from './dataProvider'
+import buildDataProvider, { propertyRoutePrefix } from './dataProvider'
 import authProvider from './authProvider'
 import MyLayout from './Components/MyLayout'
 import Dashboard from './Components/Dashboard'
@@ -40,7 +40,7 @@ class App extends Component {
     return (
       <Admin dataProvider={dataProvider} authProvider={authProvider} theme={theme} dashboard={Dashboard} layout={MyLayout}>
         {permissions => [
-          <Resource name='User' icon={People} list={permissions === 'admin' ? UserList : null} edit={UserEdit} create={permissions === 'admin' ? UserCreate : null} />,
+          <Resource name={`${propertyRoutePrefix}User`} icon={People} list={permissions === 'admin' ? UserList : null} edit={UserEdit} create={permissions === 'admin' ? UserCreate : null} />,
           <Resource name='Property' list={PropertyList} edit={PropertyEdit} create={PropertyCreate} />
         ]}
       </Admin>

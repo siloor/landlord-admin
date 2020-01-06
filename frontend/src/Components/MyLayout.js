@@ -32,7 +32,7 @@ const ProfileMenu = forwardRef(({ onClick }, ref) => {
     <Fragment>
       <MenuItemLink
         ref={ref}
-        to={`/User/${userData.id}`}
+        to={`/20/User/${userData.id}`}
         primaryText="Profile"
         leftIcon={<SettingsIcon/>}
         onClick={onClick}
