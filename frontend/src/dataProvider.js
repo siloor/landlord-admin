@@ -20,20 +20,16 @@ export const apiIntrospection = {
 
 export const propertyRoutePrefix = ':propertyId(\\d+)/'
 
+export const getPropertyId = () => {
+  const match = window.location.hash.match(/^#\/(\d+)\//)
+
+  return match ? match[1] : null
+}
+
 const myBuildQuery = introspection => (fetchType, resource, params) => {
   apiIntrospection.introspection = introspection
 
-  let propertyId = null
-
-  if (resource.indexOf(propertyRoutePrefix) === 0) {
-    resource = resource.substr(propertyRoutePrefix.length)
-
-    const match = window.location.hash.match(new RegExp(`#\\/(.*)\\/${resource}`))
-
-    if (match) {
-      propertyId = match[1]
-    }
-  }
+  const propertyId = getPropertyId()
 
   return buildQuery(introspection)(fetchType, resource, params)
 }

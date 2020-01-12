@@ -3,6 +3,7 @@ import { AppBar, Layout, UserMenu, MenuItemLink, Sidebar, usePermissions } from 
 import { makeStyles } from '@material-ui/core/styles'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { getUserData } from '../authProvider'
+import MyMenu from './MyMenu'
 
 const useSidebarStyles = (permissions) => {
   const styles = {}
@@ -55,6 +56,6 @@ const MyUserMenu = props => (
 )
 
 const MyAppBar = props => <AppBar {...props} userMenu={<MyUserMenu />} />
-const MyLayout = props => <Layout {...props} appBar={MyAppBar} sidebar={MySidebar} />
+const MyLayout = props => <Layout {...props} appBar={MyAppBar} sidebar={MySidebar} menu={MyMenu} />
 
 export default MyLayout
