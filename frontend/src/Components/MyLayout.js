@@ -1,10 +1,11 @@
-import React, { forwardRef, Fragment } from 'react'
+import React, { forwardRef, Fragment, useEffect, useState } from 'react'
 import { AppBar, Layout, UserMenu, MenuItemLink, Sidebar, usePermissions } from 'react-admin'
 import { makeStyles } from '@material-ui/core/styles'
 import SettingsIcon from '@material-ui/icons/Settings'
 import Typography from '@material-ui/core/Typography'
 import { getUserData } from '../authProvider'
 import { getPropertyId } from '../dataProvider'
+import getGraphqlClient from '../graphqlClient'
 import MyMenu from './MyMenu'
 
 const useSidebarStyles = (permissions) => {
@@ -70,23 +71,48 @@ const useAppBarStyles = () => {
   return makeStyles(styles)()
 }
 
+const MyTitle = ({ propertyId }) => {
+  const [propertyName, setPropertyName] = useState(null)
+
+  useEffect(
+    () => {
+      if (!propertyId) {
+        setPropertyName(null)
+
+        return
+      }
+
+      const graphQLClient = getGraphqlClient()
+
+      const query = `query Property($id: ID!) {
+        data: Property(id: $id) { name }
+      }`
+
+      const variables = { id: propertyId }
+
+      graphQLClient.request(query, variables).then(data => {
+        setPropertyName(data.data ? data.data.name : null)
+      })
+    },
+    [ propertyId ]
+  )
+
+  return propertyName ? `${propertyName} - ` : ''
+}
+
 const MyAppBar = props => {
   const classes = useAppBarStyles()
 
-  const propertyId = getPropertyId()
-
   return (
     <AppBar {...props} userMenu={<MyUserMenu />}>
-      {!!propertyId && (
-        <Typography
-          variant="h6"
-          color="inherit"
-          className={classes.title}
-          id="react-admin-title"
-        >
-          {propertyId} -&nbsp;
-        </Typography>
-      )}
+      <Typography
+        variant="h6"
+        color="inherit"
+        className={classes.title}
+        id="react-admin-title"
+      >
+        <MyTitle propertyId={getPropertyId()} />
+      </Typography>
     </AppBar>
   )
 }
