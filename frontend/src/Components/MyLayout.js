@@ -2,7 +2,9 @@ import React, { forwardRef, Fragment } from 'react'
 import { AppBar, Layout, UserMenu, MenuItemLink, Sidebar, usePermissions } from 'react-admin'
 import { makeStyles } from '@material-ui/core/styles'
 import SettingsIcon from '@material-ui/icons/Settings'
+import Typography from '@material-ui/core/Typography'
 import { getUserData } from '../authProvider'
+import { getPropertyId } from '../dataProvider'
 import MyMenu from './MyMenu'
 
 const useSidebarStyles = (permissions) => {
@@ -55,7 +57,40 @@ const MyUserMenu = props => (
   </UserMenu>
 )
 
-const MyAppBar = props => <AppBar {...props} userMenu={<MyUserMenu />} />
+const useAppBarStyles = () => {
+  const styles = {
+    title: {
+      flex: 1,
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+    },
+  }
+
+  return makeStyles(styles)()
+}
+
+const MyAppBar = props => {
+  const classes = useAppBarStyles()
+
+  const propertyId = getPropertyId()
+
+  return (
+    <AppBar {...props} userMenu={<MyUserMenu />}>
+      {!!propertyId && (
+        <Typography
+          variant="h6"
+          color="inherit"
+          className={classes.title}
+          id="react-admin-title"
+        >
+          {propertyId} -&nbsp;
+        </Typography>
+      )}
+    </AppBar>
+  )
+}
+
 const MyLayout = props => <Layout {...props} appBar={MyAppBar} sidebar={MySidebar} menu={MyMenu} />
 
 export default MyLayout
