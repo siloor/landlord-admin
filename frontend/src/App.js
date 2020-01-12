@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom';
 import { Admin, Resource } from 'react-admin'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { deepPurple } from '@material-ui/core/colors'
@@ -8,6 +9,7 @@ import buildDataProvider, { propertyRoutePrefix } from './dataProvider'
 import authProvider from './authProvider'
 import MyLayout from './Components/MyLayout'
 import Dashboard from './Components/Dashboard'
+import PropertyDashboard from './Components/PropertyDashboard'
 import { UserCreate, UserEdit, UserList } from './Components/Users'
 import { PropertyCreate, PropertyEdit, PropertyList } from './Components/Properties'
 
@@ -16,6 +18,10 @@ const theme = createMuiTheme({
     secondary: deepPurple
   }
 })
+
+const customRoutes = [
+  <Route exact path={`/${propertyRoutePrefix}Dashboard`} component={PropertyDashboard} />
+];
 
 class App extends Component {
   constructor () {
@@ -38,9 +44,9 @@ class App extends Component {
     }
 
     return (
-      <Admin dataProvider={dataProvider} authProvider={authProvider} theme={theme} dashboard={Dashboard} layout={MyLayout}>
+      <Admin dataProvider={dataProvider} authProvider={authProvider} theme={theme} dashboard={Dashboard} layout={MyLayout} customRoutes={customRoutes}>
         {permissions => [
-          <Resource name={`${propertyRoutePrefix}User`} icon={People} list={permissions === 'admin' ? UserList : null} edit={UserEdit} create={permissions === 'admin' ? UserCreate : null} />,
+          <Resource name={'User'} icon={People} list={permissions === 'admin' ? UserList : null} edit={UserEdit} create={permissions === 'admin' ? UserCreate : null} />,
           <Resource name='Property' list={PropertyList} edit={PropertyEdit} create={PropertyCreate} />
         ]}
       </Admin>
