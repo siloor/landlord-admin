@@ -13,7 +13,7 @@ interface Props {
 }
 
 interface FormData {
-    username: string;
+    email: string;
     password: string;
 }
 
@@ -57,10 +57,10 @@ const LoginForm: FunctionComponent<Props> = ({ redirectTo }) => {
     const classes = useStyles({});
 
     const validate = (values: FormData) => {
-        const errors = { username: undefined, password: undefined };
+        const errors = { email: undefined, password: undefined };
 
-        if (!values.username) {
-            errors.username = translate('ra.validation.required');
+        if (!values.email) {
+            errors.email = translate('ra.validation.required');
         }
         if (!values.password) {
             errors.password = translate('ra.validation.required');
@@ -97,10 +97,10 @@ const LoginForm: FunctionComponent<Props> = ({ redirectTo }) => {
                         <div className={classes.input}>
                             <Field
                                 autoFocus
-                                id="username"
-                                name="username"
+                                id="email"
+                                name="email"
                                 component={Input}
-                                label={translate('ra.auth.username')}
+                                label={translate('ra.auth.email')}
                                 disabled={loading}
                             />
                         </div>

@@ -9,7 +9,7 @@ export const getUserData = () => {
 
 export default {
   login: params => {
-    const { username, password } = params
+    const { email, password } = params
 
     const graphQLClient = getGraphqlClient()
 
@@ -18,7 +18,7 @@ export default {
     }`
 
     const variables = {
-      email: username,
+      email,
       password
     }
 
