@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Field, Form } from 'react-final-form';
+import { useHistory } from 'react-router-dom';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -56,6 +57,7 @@ const SignupForm: FunctionComponent<Props> = ({ redirectTo }) => {
     const translate = useTranslate();
     const notify = useNotify();
     const classes = useStyles({});
+    const history = useHistory();
 
     const validate = (values: FormData) => {
         const errors = { email: undefined, username: undefined, password: undefined };
@@ -77,6 +79,8 @@ const SignupForm: FunctionComponent<Props> = ({ redirectTo }) => {
         signup(Object.assign(values, { role: 'user' }), redirectTo)
             .then(() => {
                 setLoading(false);
+
+                history.push('/');
             })
             .catch(error => {
                 setLoading(false);
