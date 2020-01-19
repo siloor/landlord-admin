@@ -12,6 +12,7 @@ import buildDataProvider, { propertyRoutePrefix } from './dataProvider'
 import authProvider from './authProvider'
 import MyLayout from './Components/MyLayout'
 import MyLogin from './Components/MyLogin'
+import MySignup from './Components/MySignup'
 import Dashboard from './Components/Dashboard'
 import PropertyDashboard from './Components/PropertyDashboard'
 import { UserCreate, UserEdit, UserList } from './Components/Users'
@@ -24,7 +25,8 @@ const theme = createMuiTheme({
 })
 
 const customRoutes = [
-  <Route exact path={`/${propertyRoutePrefix}Dashboard`} component={PropertyDashboard} />
+  <Route exact path={`/${propertyRoutePrefix}Dashboard`} component={PropertyDashboard} />,
+  <Route exact path={`/signup`} component={MySignup} noLayout />
 ]
 
 const messages = {

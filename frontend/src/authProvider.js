@@ -4,6 +4,10 @@ import getGraphqlClient from './graphqlClient'
 export const getUserData = () => {
   const token = window.localStorage.getItem('token')
 
+  if (!token) {
+    return null
+  }
+
   return decodeJwt(token)
 }
 
@@ -40,6 +44,10 @@ export default {
   getPermissions: params => {
     const userData = getUserData()
 
-    return userData.role ? Promise.resolve(userData.role) : Promise.reject(new Error())
+    if (window.location.hash === '#/signup') {
+      return Promise.resolve('guest')
+    }
+
+    return userData && userData.role ? Promise.resolve(userData.role) : Promise.reject(new Error())
   }
 }
