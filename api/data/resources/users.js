@@ -128,6 +128,10 @@ const resolvers = {
   },
 
   async signup (_, { username, email, password, role }) {
+    if (role === User.ROLE_ADMIN) {
+      throw new Error('Role not allowed!')
+    }
+
     const user = await User.create({
       username,
       email,
