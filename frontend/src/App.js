@@ -34,7 +34,8 @@ const messages = {
     ra: {
       auth: {
         email: 'Email',
-        sign_up: 'Sign up'
+        sign_up: 'Sign up',
+        sign_up_link: 'Create an account'
       }
     }
   })

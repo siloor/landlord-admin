@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslate, useLogin, useNotify, useSafeSetState } from 'ra-core';
+import { Link } from 'react-router-dom';
 
 interface Props {
     redirectTo?: string;
@@ -30,6 +31,13 @@ const useStyles = makeStyles(
         },
         icon: {
             marginRight: theme.spacing(1),
+        },
+        signupLinkContainer: {
+            padding: '0 1em 1em 1em',
+        },
+        signupLink: {
+            color: theme.palette.primary.main,
+            fontSize: '0.8rem'
         },
     }),
     { name: 'RaLoginForm' }
@@ -134,6 +142,9 @@ const LoginForm: FunctionComponent<Props> = ({ redirectTo }) => {
                             {translate('ra.auth.sign_in')}
                         </Button>
                     </CardActions>
+                    <div className={classes.signupLinkContainer}>
+                        <Link to={{pathname: "/signup"}} className={classes.signupLink}>{translate('ra.auth.sign_up_link')}</Link>
+                    </div>
                 </form>
             )}
         />
