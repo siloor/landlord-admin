@@ -9,7 +9,7 @@ import { getResources, useTranslate } from 'ra-core';
 
 import { DashboardMenuItem, MenuItemLink } from 'react-admin';
 
-import { getPropertyId } from '../dataProvider';
+import { getPropertyId } from '../../dataProvider';
 
 const useStyles = makeStyles(
   {
@@ -34,7 +34,7 @@ const translatedResourceName = (resource, translate) =>
         : inflection.humanize(inflection.pluralize(resource.name)),
   });
 
-const MyMenu = ({
+const Menu = ({
   classes: classesOverride,
   className,
   dense,
@@ -92,7 +92,7 @@ const MyMenu = ({
   );
 };
 
-MyMenu.propTypes = {
+Menu.propTypes = {
   classes: PropTypes.object,
   className: PropTypes.string,
   dense: PropTypes.bool,
@@ -101,8 +101,8 @@ MyMenu.propTypes = {
   onMenuClick: PropTypes.func,
 };
 
-MyMenu.defaultProps = {
+Menu.defaultProps = {
   onMenuClick: () => null,
 };
 
-export default MyMenu;
+export default Menu;

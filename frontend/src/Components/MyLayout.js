@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import { getUserData } from '../authProvider'
 import { getPropertyId } from '../dataProvider'
 import getGraphqlClient from '../graphqlClient'
-import MyMenu from './MyMenu'
+import MyMenu from './ReactAdmin/Menu'
 
 const useSidebarStyles = (permissions) => {
   const styles = {}
