@@ -33,7 +33,8 @@ const messages = {
   en: _.merge(englishMessages, {
     ra: {
       auth: {
-        email: 'Email'
+        email: 'Email',
+        sign_up: 'Sign up'
       }
     }
   })
